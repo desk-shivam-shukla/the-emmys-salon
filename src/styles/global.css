@@ -19,6 +19,8 @@
 @layer base {
   html {
     scroll-behavior: auto;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
   }
 
   body {
@@ -128,6 +130,47 @@
   .price-row {
     @apply flex items-baseline justify-between gap-4 border-b border-gold-soft py-5;
   }
+
+  /* Reserve schedule: scroll inside the card (horizontal + vertical on small screens) */
+  .schedule-table-scroll {
+    @apply w-full max-w-full min-w-0;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+    touch-action: pan-x pan-y;
+    max-height: min(70vh, 36rem);
+  }
+
+  .schedule-table {
+    width: max-content;
+    min-width: 100%;
+  }
+
+  /* Weekend columns (Sat–Sun, when not a national holiday) */
+  .schedule-weekend-header {
+    background-color: color-mix(in srgb, var(--wood-light) 28%, var(--surface-elevated)) !important;
+  }
+
+  .schedule-weekend-cell {
+    background-color: color-mix(in srgb, var(--wood-light) 22%, var(--surface-elevated)) !important;
+  }
+
+  .schedule-weekend-cell:hover.schedule-cell-clickable {
+    background-color: color-mix(in srgb, var(--gold-soft) 30%, var(--wood-light)) !important;
+  }
+
+  /* National holiday columns — stronger tan fill + same text styles as other days */
+  .schedule-holiday-header {
+    background-color: var(--wood-light) !important;
+  }
+
+  .schedule-holiday-cell {
+    background-color: color-mix(in srgb, var(--wood-light) 50%, var(--surface-elevated)) !important;
+  }
+
+  .schedule-holiday-cell:hover.schedule-cell-clickable {
+    background-color: color-mix(in srgb, var(--gold-soft) 45%, var(--wood-light)) !important;
+  }
 }
 
 html.lenis,
@@ -154,6 +197,28 @@ html.lenis body {
   background-image: linear-gradient(rgb(255 255 255 / 0.03) 1px, transparent 1px),
     linear-gradient(90deg, rgb(255 255 255 / 0.03) 1px, transparent 1px);
   background-size: 48px 48px;
+}
+
+@media (max-width: 768px) {
+  .label-caps-on-light {
+    color: var(--gold-hover);
+  }
+
+  .text-muted-on-dark {
+    color: rgb(250 246 240 / 0.72);
+  }
+
+  .text-muted-on-dark-soft {
+    color: rgb(250 246 240 / 0.78);
+  }
+
+  .text-muted-on-dark-strong {
+    color: rgb(250 246 240 / 0.85);
+  }
+
+  .label-caps-on-dark {
+    color: var(--gold-accent) !important;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
