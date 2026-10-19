@@ -11,13 +11,26 @@ import {
   testimonialSchema,
 } from '../schemas/salon';
 
+/** GitHub Actions vars are often set but empty; treat those like unset. */
+function envOr<T extends string | undefined>(
+  value: string | undefined,
+  fallback: T,
+): T {
+  const trimmed = value?.trim();
+  return (trimmed ? trimmed : fallback) as T;
+}
+
 export const salon = salonSchema.parse({
   ...salonJson,
-  phone: import.meta.env.PUBLIC_SALON_PHONE ?? salonJson.phone,
-  hotpepperUrl:
-    import.meta.env.PUBLIC_HOTPEPPER_URL ?? salonJson.hotpepperUrl,
-  mapsEmbedUrl:
-    import.meta.env.PUBLIC_GOOGLE_MAPS_EMBED_URL ?? salonJson.mapsEmbedUrl,
+  phone: envOr(import.meta.env.PUBLIC_SALON_PHONE, salonJson.phone),
+  hotpepperUrl: envOr(
+    import.meta.env.PUBLIC_HOTPEPPER_URL,
+    salonJson.hotpepperUrl,
+  ),
+  mapsEmbedUrl: envOr(
+    import.meta.env.PUBLIC_GOOGLE_MAPS_EMBED_URL,
+    salonJson.mapsEmbedUrl,
+  ),
 });
 
 export const menu = menuSchema.parse(menuJson);
