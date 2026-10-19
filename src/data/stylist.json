@@ -1,0 +1,23 @@
+{
+  "id": "emmy",
+  "name": { "ja": "エミー・田中", "en": "Emmy Tanaka" },
+  "nameReading": "Emmy Tanaka",
+  "role": { "ja": "オーナースタイリスト", "en": "Owner Stylist" },
+  "bio": {
+    "ja": "田園調布で育った私にとって、この街の落ち着いた空気はサロンの原点です。完全予約制の個室だからこそ、ひとりひとりの髪と向き合う時間を大切にしています。\n\nダメージを抑えながら、日常のお手入れが楽になるスタイルを一緒に見つけましょう。カウンセリングは施術時間の一部ではなく、あなたのための時間です。",
+    "en": "Denenchofu is where I grew up — its calm rhythm shapes everything about this salon. In a reservation-only private room, we take the time your hair deserves.\n\nI focus on styles that stay manageable at home while protecting the integrity of your hair. Consultation is not a prelude to the service; it is the heart of it."
+  },
+  "quote": {
+    "ja": "「今日より、明日の自分が好きになる」スタイルを。",
+    "en": "Styles that help you love tomorrow's reflection a little more."
+  },
+  "specialties": [
+    { "ja": "似合わせカット", "en": "Custom cuts" },
+    { "ja": "髪質改善カラー", "en": "Gentle color" },
+    { "ja": "ボブ・ショート", "en": "Bob & short styles" }
+  ],
+  "photos": {
+    "primary": "/images/staff/primary.svg",
+    "secondary": "/images/staff/secondary.svg"
+  }
+}

@@ -1,0 +1,164 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --surface-base: #f5ebe0;
+  --surface-elevated: #fffaf3;
+  --surface-staff: #e8dcc8;
+  --surface-dark: #2a2118;
+  --wood-deep: #2c2118;
+  --wood-mid: #5c4838;
+  --wood-light: #e6d5c0;
+  --gold-accent: #c4a574;
+  --gold-soft: #dcc9a8;
+  --gold-hover: #a88650;
+  --cream: #faf6f0;
+}
+
+@layer base {
+  html {
+    scroll-behavior: auto;
+  }
+
+  body {
+    @apply bg-surface-base font-sans text-wood-deep antialiased;
+  }
+
+  a {
+    @apply text-inherit no-underline transition-colors duration-200;
+  }
+
+  ::selection {
+    background: rgb(196 165 116 / 0.35);
+  }
+
+  section[id] {
+    scroll-margin-top: 5.5rem;
+  }
+}
+
+@layer components {
+  .container-site {
+    @apply mx-auto w-full max-w-[1200px] px-5 md:px-8;
+  }
+
+  .label-caps {
+    @apply font-sans text-[0.65rem] font-semibold uppercase tracking-[0.35em] text-gold-accent md:text-xs;
+  }
+
+  .display-title {
+    @apply font-serif text-[clamp(2.5rem,8vw,5.5rem)] font-semibold leading-[1.05] tracking-tight text-cream;
+  }
+
+  .section-title {
+    @apply font-serif text-[clamp(2rem,5vw,3.25rem)] leading-tight text-wood-deep;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center rounded-none border border-gold-accent bg-gold-accent px-8 py-3.5 text-xs font-semibold uppercase tracking-[0.2em] text-wood-deep transition-all duration-300 hover:bg-transparent hover:text-gold-accent;
+  }
+
+  .btn-outline {
+    @apply inline-flex items-center justify-center rounded-none border border-white/30 bg-transparent px-8 py-3.5 text-xs font-semibold uppercase tracking-[0.2em] text-cream transition-all duration-300 hover:border-gold-accent hover:text-gold-accent;
+  }
+
+  .btn-outline-dark {
+    @apply inline-flex items-center justify-center rounded-none border border-gold-soft bg-transparent px-8 py-3.5 text-xs font-semibold uppercase tracking-[0.2em] text-wood-deep transition-all duration-300 hover:border-gold-accent hover:text-gold-accent;
+  }
+
+  .site-header {
+    background: var(--surface-elevated);
+    border-bottom: 1px solid var(--gold-soft);
+    box-shadow: 0 8px 32px rgb(44 33 24 / 0.08);
+    color: var(--wood-deep);
+  }
+
+  .site-header .nav-link {
+    @apply relative px-2 py-1 text-[0.65rem] font-semibold uppercase tracking-[0.25em] md:px-3;
+    color: var(--wood-mid);
+  }
+
+  .site-header .nav-link:hover,
+  .site-header .nav-link.is-active {
+    color: var(--gold-hover);
+  }
+
+  .site-header .nav-link.is-active {
+    box-shadow: inset 0 -2px 0 0 var(--gold-accent);
+  }
+
+  .site-header .header-logo {
+    color: var(--wood-deep);
+  }
+
+  .site-header .header-phone {
+    color: var(--wood-mid);
+  }
+
+  .site-header .header-phone:hover {
+    color: var(--gold-hover);
+  }
+
+  .site-header .nav-toggle {
+    border-color: var(--gold-soft);
+  }
+
+  .site-header .nav-toggle span {
+    background: var(--wood-deep);
+  }
+
+  .site-header .mobile-drawer {
+    background: var(--surface-elevated);
+    border-top: 1px solid var(--gold-soft);
+  }
+
+  .card-elevated {
+    @apply border border-gold-soft bg-surface-elevated shadow-[0_20px_50px_-24px_rgba(44,33,24,0.35)] backdrop-blur-sm;
+  }
+
+  .section-pad {
+    @apply py-20 md:py-28 lg:py-32;
+  }
+
+  .hairline {
+    @apply h-px w-full bg-gradient-to-r from-transparent via-gold-soft to-transparent;
+  }
+
+  .price-row {
+    @apply flex items-baseline justify-between gap-4 border-b border-gold-soft py-5;
+  }
+}
+
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(1.75rem);
+}
+
+.hero-grain {
+  background-image:
+    radial-gradient(ellipse 80% 60% at 50% 0%, rgb(196 165 116 / 0.18), transparent 55%),
+    linear-gradient(180deg, var(--surface-dark) 0%, #1f1812 100%);
+}
+
+.hero-grid {
+  background-image: linear-gradient(rgb(255 255 255 / 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(255 255 255 / 0.03) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+}

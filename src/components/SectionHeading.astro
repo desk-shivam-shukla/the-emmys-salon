@@ -1,0 +1,16 @@
+---
+interface Props {
+  title: string;
+  subtitle: string;
+  dark?: boolean;
+  align?: 'left' | 'center';
+  class?: string;
+}
+const { title, subtitle, dark = false, align = 'center', class: className = '' } = Astro.props;
+const alignClass = align === 'left' ? 'text-left' : 'text-center';
+---
+<div class={`reveal mb-12 md:mb-16 ${alignClass} ${className}`}>
+  <p class="label-caps">{title}</p>
+  <h2 class:list={['section-title mt-3', dark ? 'text-cream' : 'text-wood-deep']}>{subtitle}</h2>
+  <div class:list={['mt-5 h-px w-20', align === 'left' ? '' : 'mx-auto', dark ? 'bg-cream/20' : 'bg-gold-soft']}></div>
+</div>

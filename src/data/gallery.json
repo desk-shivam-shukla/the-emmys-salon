@@ -1,0 +1,38 @@
+[
+  {
+    "id": "g1",
+    "src": "/images/gallery/1.svg",
+    "alt": { "ja": "ナチュラル艶ボブ", "en": "Natural glossy bob" },
+    "tags": ["bob", "cut"]
+  },
+  {
+    "id": "g2",
+    "src": "/images/gallery/2.svg",
+    "alt": { "ja": "ソフトレイヤーミディ", "en": "Soft layered medium" },
+    "tags": ["cut", "color"]
+  },
+  {
+    "id": "g3",
+    "src": "/images/gallery/3.svg",
+    "alt": { "ja": "大人ショート", "en": "Refined short" },
+    "tags": ["short"]
+  },
+  {
+    "id": "g4",
+    "src": "/images/gallery/4.svg",
+    "alt": { "ja": "ハニーブラウンカラー", "en": "Honey brown color" },
+    "tags": ["color"]
+  },
+  {
+    "id": "g5",
+    "src": "/images/gallery/5.svg",
+    "alt": { "ja": "ゆるふわパーマ", "en": "Loose wave perm" },
+    "tags": ["perm"]
+  },
+  {
+    "id": "g6",
+    "src": "/images/gallery/6.svg",
+    "alt": { "ja": "艶ストレート", "en": "Silky straight" },
+    "tags": ["cut"]
+  }
+]

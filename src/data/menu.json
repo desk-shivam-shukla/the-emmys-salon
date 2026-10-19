@@ -1,0 +1,100 @@
+{
+  "tiers": [
+    {
+      "id": "director",
+      "name": { "ja": "ディレクター", "en": "Director" },
+      "note": { "ja": "オーナー", "en": "Owner" }
+    }
+  ],
+  "categories": [
+    {
+      "id": "cut",
+      "name": { "ja": "カット", "en": "Cut" },
+      "items": [
+        {
+          "id": "cut-director",
+          "name": { "ja": "カット", "en": "Cut" },
+          "description": {
+            "ja": "似合わせカウンセリング付き",
+            "en": "Includes personalized consultation"
+          },
+          "priceYen": 8800,
+          "featured": true
+        },
+        {
+          "id": "cut-bangs",
+          "name": { "ja": "前髪カット", "en": "Bangs trim" },
+          "priceYen": 1100
+        }
+      ]
+    },
+    {
+      "id": "color",
+      "name": { "ja": "カラー", "en": "Color" },
+      "items": [
+        {
+          "id": "color-full",
+          "name": { "ja": "フルカラー", "en": "Full color" },
+          "description": {
+            "ja": "低刺激処方を髪質に合わせて調合",
+            "en": "Gentle formula tailored to your hair"
+          },
+          "priceLabel": { "ja": "¥9,900〜", "en": "¥9,900+" },
+          "featured": true
+        },
+        {
+          "id": "color-retouch",
+          "name": { "ja": "リタッチ", "en": "Root retouch" },
+          "priceLabel": { "ja": "¥7,700〜", "en": "¥7,700+" }
+        }
+      ]
+    },
+    {
+      "id": "perm",
+      "name": { "ja": "パーマ", "en": "Perm" },
+      "items": [
+        {
+          "id": "perm-wave",
+          "name": { "ja": "デジタルパーマ", "en": "Digital perm" },
+          "priceLabel": { "ja": "¥11,000〜", "en": "¥11,000+" },
+          "featured": true
+        }
+      ]
+    },
+    {
+      "id": "treatment",
+      "name": { "ja": "トリートメント", "en": "Treatment" },
+      "items": [
+        {
+          "id": "treatment-premium",
+          "name": { "ja": "髪質改善トリートメント", "en": "Hair quality treatment" },
+          "description": {
+            "ja": "深層まで潤いを届ける集中ケア",
+            "en": "Deep conditioning for lasting shine"
+          },
+          "priceLabel": { "ja": "¥5,500〜", "en": "¥5,500+" },
+          "featured": true
+        }
+      ]
+    },
+    {
+      "id": "course",
+      "name": { "ja": "セットコース", "en": "Courses" },
+      "items": [
+        {
+          "id": "course-cut-color-treatment",
+          "name": {
+            "ja": "カット＋カラー＋トリートメント",
+            "en": "Cut + color + treatment"
+          },
+          "priceLabel": { "ja": "¥19,800〜", "en": "¥19,800+" }
+        },
+        {
+          "id": "course-cut-perm",
+          "name": { "ja": "カット＋パーマ", "en": "Cut + perm" },
+          "priceLabel": { "ja": "¥16,500〜", "en": "¥16,500+" }
+        }
+      ]
+    }
+  ]
+}

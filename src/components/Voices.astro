@@ -1,0 +1,36 @@
+---
+import type { Locale } from '../lib/i18n';
+import { localized, t } from '../lib/i18n';
+import { testimonials } from '../lib/loadData';
+import SectionHeading from './SectionHeading.astro';
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+---
+<section id="voices" class="section-pad bg-surface-base">
+  <div class="container-site">
+    <SectionHeading title={t(locale, 'voices.title')} subtitle={t(locale, 'voices.subtitle')} align="left" />
+    <div class="grid gap-6 md:grid-cols-3">
+      {
+        testimonials.map((item, i) => (
+          <blockquote class="reveal card-elevated flex h-full flex-col p-8">
+            <span class="font-serif text-5xl leading-none text-gold-accent/40">“</span>
+            <p class="-mt-4 flex-1 text-sm leading-relaxed text-wood-mid md:text-base">
+              {localized(locale, item.quote)}
+            </p>
+            <footer class="mt-6 border-t border-gold-soft/40 pt-4">
+              <span class="text-xs font-semibold uppercase tracking-[0.2em] text-wood-deep">{item.author}</span>
+              {item.menuHint && (
+                <span class="mt-1 block text-[0.65rem] uppercase tracking-[0.15em] text-gold-accent">
+                  {localized(locale, item.menuHint)}
+                </span>
+              )}
+            </footer>
+          </blockquote>
+        ))
+      }
+    </div>
+  </div>
+</section>

@@ -1,0 +1,38 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { isLocale, localePath, t, type Locale } from '../../../lib/i18n';
+
+export async function getStaticPaths() {
+  const entries = await getCollection('news');
+  return entries.map((entry) => ({
+    params: { lang: entry.data.locale, slug: entry.slug },
+    props: { entry },
+  }));
+}
+
+const { lang, slug } = Astro.params;
+const { entry } = Astro.props;
+
+if (!lang || !isLocale(lang) || !entry) {
+  return Astro.redirect(`${import.meta.env.BASE_URL}ja/`);
+}
+const locale = lang as Locale;
+const { Content } = await render(entry);
+---
+<BaseLayout locale={locale} title={entry.data.title[locale]} home={false}>
+  <article class="mx-auto max-w-2xl px-4 pb-20 pt-28 md:px-6">
+    <time class="text-xs text-gold-accent" datetime={entry.data.date.toISOString()}>
+      {entry.data.date.toLocaleDateString(locale === 'ja' ? 'ja-JP' : 'en-US')}
+    </time>
+    <h1 class="mt-2 font-serif text-3xl text-wood-deep md:text-4xl">{entry.data.title[locale]}</h1>
+    <div class="prose prose-stone mt-8 max-w-none text-wood-mid prose-headings:font-serif prose-headings:text-wood-deep">
+      <Content />
+    </div>
+    <p class="mt-12">
+      <a href={localePath(locale, '')} class="text-sm text-gold-accent hover:text-gold-hover">
+        ← {t(locale, 'reserve.backHome')}
+      </a>
+    </p>
+  </article>
+</BaseLayout>

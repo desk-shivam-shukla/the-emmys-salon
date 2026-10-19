@@ -1,0 +1,75 @@
+---
+import type { Locale } from '../lib/i18n';
+import { localized, t } from '../lib/i18n';
+import { stylist } from '../lib/loadData';
+import { asset } from '../lib/assets';
+import SectionHeading from './SectionHeading.astro';
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const bioParagraphs = localized(locale, stylist.bio).split('\n\n');
+---
+<section
+  id="staff"
+  class="section-pad min-h-[100dvh] bg-[linear-gradient(180deg,var(--surface-staff)_0%,var(--surface-base)_100%)]"
+>
+  <div class="container-site flex flex-col justify-center">
+    <SectionHeading title={t(locale, 'staff.title')} subtitle={t(locale, 'staff.subtitle')} align="left" />
+    <div class="grid min-h-[65dvh] items-center gap-12 lg:grid-cols-2 lg:gap-20">
+      <div class="relative order-2 lg:order-1" data-staff="photo">
+        <div class="overflow-hidden border border-gold-soft/80 shadow-[0_32px_64px_-20px_rgba(44,33,24,0.45)]">
+          <img
+            src={asset(stylist.photos.primary)}
+            alt={localized(locale, stylist.name)}
+            class="aspect-[4/5] w-full object-cover [filter:sepia(0.08)]"
+            width="800"
+            height="1000"
+            loading="lazy"
+          />
+        </div>
+        {
+          stylist.photos.secondary && (
+            <div class="absolute -bottom-8 -right-2 w-[42%] overflow-hidden border-4 border-surface-base shadow-xl md:-right-6">
+              <img
+                src={asset(stylist.photos.secondary)}
+                alt=""
+                class="aspect-square w-full object-cover [filter:sepia(0.08)]"
+                width="400"
+                height="400"
+                loading="lazy"
+              />
+            </div>
+          )
+        }
+      </div>
+      <div class="order-1 lg:order-2 lg:py-6" data-staff="copy">
+        <p class="label-caps">{localized(locale, stylist.role)}</p>
+        <h3 class="mt-3 font-serif text-[clamp(2.25rem,5vw,3.75rem)] leading-tight text-wood-deep">
+          {localized(locale, stylist.name)}
+        </h3>
+        {stylist.nameReading && <p class="mt-2 text-sm uppercase tracking-[0.2em] text-wood-mid">{stylist.nameReading}</p>}
+        {
+          stylist.quote && (
+            <blockquote class="mt-8 border-l-2 border-gold-accent pl-5 font-serif text-xl italic leading-relaxed text-wood-mid md:text-2xl">
+              {localized(locale, stylist.quote)}
+            </blockquote>
+          )
+        }
+        <div class="mt-8 space-y-4 text-sm leading-relaxed text-wood-mid md:text-base">
+          {bioParagraphs.map((p) => <p>{p}</p>)}
+        </div>
+        <ul class="mt-10 flex flex-wrap gap-2">
+          {
+            stylist.specialties.map((tag) => (
+              <li class="border border-wood-deep/15 bg-surface-elevated px-4 py-2 text-[0.65rem] font-semibold uppercase tracking-[0.15em] text-wood-deep">
+                {localized(locale, tag)}
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>

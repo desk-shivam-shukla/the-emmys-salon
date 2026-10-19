@@ -1,0 +1,47 @@
+---
+import type { Locale } from '../lib/i18n';
+import { localized, t } from '../lib/i18n';
+import { gallery } from '../lib/loadData';
+import { asset } from '../lib/assets';
+import SectionHeading from './SectionHeading.astro';
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+---
+<section id="gallery" class="section-pad bg-wood-deep text-cream">
+  <div class="container-site">
+    <SectionHeading title={t(locale, 'gallery.title')} subtitle={t(locale, 'gallery.subtitle')} dark align="left" />
+    <div class="grid grid-cols-2 gap-2 md:grid-cols-12 md:gap-3">
+      {
+        gallery.map((item, i) => (
+          <figure
+            class:list={[
+              'group reveal relative overflow-hidden bg-surface-dark',
+              i === 0 && 'md:col-span-6 md:row-span-2',
+              i === 1 && 'md:col-span-3',
+              i === 2 && 'md:col-span-3',
+              i >= 3 && 'md:col-span-4',
+            ]}
+          >
+            <img
+              src={asset(item.src)}
+              alt={localized(locale, item.alt)}
+              class:list={[
+                'w-full object-cover transition-transform duration-700 group-hover:scale-105 [filter:sepia(0.06)_brightness(0.95)]',
+                i === 0 ? 'aspect-[3/4] md:min-h-full md:aspect-auto md:h-full' : 'aspect-[4/5]',
+              ]}
+              width="600"
+              height="750"
+              loading="lazy"
+            />
+            <figcaption class="absolute inset-x-0 bottom-0 translate-y-full bg-gradient-to-t from-black/70 to-transparent p-4 text-xs uppercase tracking-[0.2em] transition-transform duration-300 group-hover:translate-y-0">
+              {localized(locale, item.alt)}
+            </figcaption>
+          </figure>
+        ))
+      }
+    </div>
+  </div>
+</section>

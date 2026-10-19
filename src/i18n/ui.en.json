@@ -1,0 +1,70 @@
+{
+  "nav": {
+    "concept": "About",
+    "menu": "Menu",
+    "staff": "Stylist",
+    "gallery": "Gallery",
+    "access": "Access",
+    "reserve": "Reserve"
+  },
+  "hero": {
+    "ctaReserve": "Book now",
+    "ctaMenu": "View menu",
+    "scroll": "Scroll"
+  },
+  "concept": {
+    "title": "Concept",
+    "subtitle": "Our philosophy"
+  },
+  "menu": {
+    "title": "Menu",
+    "subtitle": "Services",
+    "viewAll": "View full price list",
+    "from": "from"
+  },
+  "staff": {
+    "title": "Stylist",
+    "subtitle": "Meet Emmy"
+  },
+  "gallery": {
+    "title": "Gallery",
+    "subtitle": "Styles"
+  },
+  "voices": {
+    "title": "Voice",
+    "subtitle": "Guest stories"
+  },
+  "news": {
+    "title": "News",
+    "subtitle": "Updates",
+    "readMore": "Read more"
+  },
+  "access": {
+    "title": "Access",
+    "subtitle": "Visit us",
+    "hours": "Hours",
+    "holidays": "Closed",
+    "phone": "Phone"
+  },
+  "footer": {},
+  "reserve": {
+    "title": "Reservation",
+    "subtitle": "Book your visit",
+    "call": "Call to reserve",
+    "online": "Book online",
+    "formTitle": "Reservation request",
+    "formNote": "Demo only — we will contact you to confirm.",
+    "submit": "Submit",
+    "success": "Request received (demo).",
+    "backHome": "Back to home"
+  },
+  "menuPage": {
+    "title": "Menu & Price",
+    "subtitle": "Full menu",
+    "backHome": "Back to home"
+  },
+  "lang": {
+    "ja": "日本語",
+    "en": "English"
+  }
+}

@@ -1,0 +1,35 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import MenuTable from '../../components/MenuTable.astro';
+import { isLocale, localePath, t, type Locale } from '../../lib/i18n';
+import { menu } from '../../lib/loadData';
+
+export function getStaticPaths() {
+  return [{ params: { lang: 'ja' } }, { params: { lang: 'en' } }];
+}
+
+const { lang } = Astro.params;
+if (!lang || !isLocale(lang)) {
+  return Astro.redirect(`${import.meta.env.BASE_URL}ja/menu/`);
+}
+const locale = lang as Locale;
+---
+<BaseLayout locale={locale} title={t(locale, 'menuPage.title')} home={false} pathSuffix="menu/">
+  <div class="bg-surface-base pb-24 pt-28 md:pt-32">
+    <div class="container-site max-w-3xl">
+      <p class="label-caps">{t(locale, 'menuPage.title')}</p>
+      <h1 class="section-title mt-3">{t(locale, 'menuPage.subtitle')}</h1>
+      <div class="mt-12">
+        <MenuTable locale={locale} menu={menu} />
+      </div>
+      <p class="mt-16">
+        <a
+          href={localePath(locale, '')}
+          class="text-[0.65rem] font-semibold uppercase tracking-[0.2em] text-gold-accent hover:text-gold-hover"
+        >
+          ← {t(locale, 'menuPage.backHome')}
+        </a>
+      </p>
+    </div>
+  </div>
+</BaseLayout>

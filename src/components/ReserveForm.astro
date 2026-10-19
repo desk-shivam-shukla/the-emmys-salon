@@ -1,0 +1,138 @@
+---
+import type { Locale } from '../lib/i18n';
+import { t } from '../lib/i18n';
+import { menu, stylist } from '../lib/loadData';
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+
+const menuOptions = menu.categories.flatMap((cat) =>
+  cat.items.map((item) => ({ id: item.id, label: item.name[locale] })),
+);
+---
+<form id="reserve-form" class="space-y-4" novalidate>
+  <input type="hidden" name="locale" value={locale} />
+  <input type="hidden" name="stylistId" value={stylist.id} />
+  <div>
+    <label class="block text-sm text-wood-deep" for="name">{locale === 'ja' ? 'お名前' : 'Name'}</label>
+    <input
+      id="name"
+      name="name"
+      required
+      class="mt-1 w-full rounded-lg border border-gold-soft bg-white px-3 py-2 text-wood-deep"
+    />
+  </div>
+  <div class="grid gap-4 sm:grid-cols-2">
+    <div>
+      <label class="block text-sm text-wood-deep" for="email">{locale === 'ja' ? 'メール' : 'Email'}</label>
+      <input
+        id="email"
+        name="email"
+        type="email"
+        required
+        class="mt-1 w-full rounded-lg border border-gold-soft bg-white px-3 py-2"
+      />
+    </div>
+    <div>
+      <label class="block text-sm text-wood-deep" for="phone">{locale === 'ja' ? '電話番号' : 'Phone'}</label>
+      <input
+        id="phone"
+        name="phone"
+        type="tel"
+        required
+        class="mt-1 w-full rounded-lg border border-gold-soft bg-white px-3 py-2"
+      />
+    </div>
+  </div>
+  <div class="grid gap-4 sm:grid-cols-2">
+    <div>
+      <label class="block text-sm text-wood-deep" for="preferredDate">
+        {locale === 'ja' ? '希望日' : 'Preferred date'}
+      </label>
+      <input
+        id="preferredDate"
+        name="preferredDate"
+        type="date"
+        required
+        class="mt-1 w-full rounded-lg border border-gold-soft bg-white px-3 py-2"
+      />
+    </div>
+    <div>
+      <label class="block text-sm text-wood-deep" for="preferredTime">
+        {locale === 'ja' ? '希望時間' : 'Preferred time'}
+      </label>
+      <input
+        id="preferredTime"
+        name="preferredTime"
+        type="time"
+        required
+        class="mt-1 w-full rounded-lg border border-gold-soft bg-white px-3 py-2"
+      />
+    </div>
+  </div>
+  <div>
+    <label class="block text-sm text-wood-deep" for="menuId">{locale === 'ja' ? 'メニュー' : 'Menu'}</label>
+    <select id="menuId" name="menuId" class="mt-1 w-full rounded-lg border border-gold-soft bg-white px-3 py-2">
+      <option value="">{locale === 'ja' ? '選択してください' : 'Select…'}</option>
+      {menuOptions.map((opt) => <option value={opt.id}>{opt.label}</option>)}
+    </select>
+  </div>
+  <div>
+    <label class="block text-sm text-wood-deep" for="notes">{locale === 'ja' ? 'ご要望' : 'Notes'}</label>
+    <textarea
+      id="notes"
+      name="notes"
+      rows="3"
+      class="mt-1 w-full rounded-lg border border-gold-soft bg-white px-3 py-2"
+    />
+  </div>
+  <p class="text-xs text-wood-mid">{t(locale, 'reserve.formNote')}</p>
+  <button
+    type="submit"
+    class="w-full rounded-full bg-gold-accent py-3 text-sm font-medium text-white hover:bg-gold-hover sm:w-auto sm:px-10"
+  >
+    {t(locale, 'reserve.submit')}
+  </button>
+  <p id="form-success" class="hidden text-sm text-gold-accent" role="status"></p>
+</form>
+
+<script>
+  import { bookingRequestSchema } from '../schemas/salon';
+
+  const form = document.getElementById('reserve-form') as HTMLFormElement | null;
+  const successEl = document.getElementById('form-success');
+
+  form?.addEventListener('submit', (event) => {
+    event.preventDefault();
+    const data = new FormData(form);
+    const payload = {
+      name: String(data.get('name') ?? ''),
+      email: String(data.get('email') ?? ''),
+      phone: String(data.get('phone') ?? ''),
+      preferredDate: String(data.get('preferredDate') ?? ''),
+      preferredTime: String(data.get('preferredTime') ?? ''),
+      menuId: String(data.get('menuId') ?? '') || undefined,
+      stylistId: String(data.get('stylistId') ?? 'emmy'),
+      notes: String(data.get('notes') ?? '') || undefined,
+      locale: String(data.get('locale') ?? 'ja') as 'ja' | 'en',
+    };
+
+    const result = bookingRequestSchema.safeParse(payload);
+    if (!result.success) {
+      successEl?.classList.add('hidden');
+      form.reportValidity();
+      return;
+    }
+
+    if (successEl) {
+      successEl.textContent =
+        payload.locale === 'ja'
+          ? '送信を受け付けました（デモ）。'
+          : 'Request received (demo).';
+      successEl.classList.remove('hidden');
+    }
+    form.reset();
+  });
+</script>

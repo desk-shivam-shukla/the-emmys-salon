@@ -1,0 +1,49 @@
+---
+import type { Locale } from '../lib/i18n';
+import { localized, localePath, t } from '../lib/i18n';
+import { menu } from '../lib/loadData';
+import SectionHeading from './SectionHeading.astro';
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+
+const featured = menu.categories.flatMap((cat) =>
+  cat.items.filter((item) => item.featured).map((item) => ({ ...item, category: cat.name })),
+);
+
+function formatPrice(item: (typeof featured)[0]) {
+  if (item.priceYen) {
+    return locale === 'ja' ? `¥${item.priceYen.toLocaleString('ja-JP')}` : `¥${item.priceYen.toLocaleString('en-US')}`;
+  }
+  if (item.priceLabel) return localized(locale, item.priceLabel);
+  return '—';
+}
+---
+<section id="menu" class="section-pad bg-surface-dark text-cream">
+  <div class="container-site">
+    <SectionHeading title={t(locale, 'menu.title')} subtitle={t(locale, 'menu.subtitle')} dark align="left" />
+    <div class="reveal max-w-3xl">
+      {
+        featured.map((item) => (
+          <div class="price-row">
+            <div>
+              <p class="label-caps !text-gold-soft">{localized(locale, item.category)}</p>
+              <h3 class="mt-1 font-serif text-2xl text-cream">{localized(locale, item.name)}</h3>
+              {item.description && (
+                <p class="mt-1 text-sm text-cream/55">{localized(locale, item.description)}</p>
+              )}
+            </div>
+            <p class="shrink-0 font-serif text-2xl text-gold-accent">{formatPrice(item)}</p>
+          </div>
+        ))
+      }
+    </div>
+    <div class="mt-12 reveal">
+      <a href={localePath(locale, 'menu/')} class="btn-outline">
+        {t(locale, 'menu.viewAll')}
+      </a>
+    </div>
+  </div>
+</section>

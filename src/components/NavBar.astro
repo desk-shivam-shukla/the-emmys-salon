@@ -1,0 +1,102 @@
+---
+import type { Locale } from '../lib/i18n';
+import { localePath, t } from '../lib/i18n';
+import { salon } from '../lib/loadData';
+import LangSwitcher from './LangSwitcher.astro';
+
+interface Props {
+  locale: Locale;
+  home?: boolean;
+  pathSuffix?: string;
+}
+const { locale, home = true, pathSuffix = '' } = Astro.props;
+const homeBase = localePath(locale, '');
+
+const links = [
+  { key: 'concept', href: home ? '#concept' : `${homeBase}#concept`, nav: 'concept' },
+  { key: 'menu', href: home ? '#menu' : `${homeBase}#menu`, nav: 'menu' },
+  { key: 'staff', href: home ? '#staff' : `${homeBase}#staff`, nav: 'staff' },
+  { key: 'gallery', href: home ? '#gallery' : `${homeBase}#gallery`, nav: 'gallery' },
+  { key: 'access', href: home ? '#access' : `${homeBase}#access`, nav: 'access' },
+] as const;
+---
+<header id="site-header" class="site-header fixed inset-x-0 top-0 z-50 backdrop-blur-md transition-shadow duration-300" data-header>
+  <div class="container-site flex h-16 items-center justify-between gap-4 md:h-[4.5rem]">
+    <a href={homeBase} class="header-logo font-serif text-lg tracking-[0.08em] md:text-xl">
+      {salon.name[locale]}
+    </a>
+
+    <nav class="hidden items-center gap-1 lg:flex" aria-label="Main">
+      {
+        links.map(({ key, href, nav }) => (
+          <a href={href} data-scroll={home ? '' : undefined} data-nav={nav} class="nav-link">
+            {t(locale, `nav.${key}`)}
+          </a>
+        ))
+      }
+    </nav>
+
+    <div class="flex items-center gap-3 md:gap-5">
+      <a
+        href={`tel:${salon.phone.replace(/-/g, '')}`}
+        class="header-phone hidden text-[0.65rem] font-medium uppercase tracking-[0.2em] xl:block"
+      >
+        {salon.phone}
+      </a>
+      <LangSwitcher locale={locale} pathSuffix={pathSuffix} variant="light" />
+      <a href={localePath(locale, 'reserve/')} class="btn-primary hidden !px-5 !py-2.5 sm:inline-flex">
+        {t(locale, 'nav.reserve')}
+      </a>
+      <button
+        type="button"
+        id="nav-toggle"
+        class="nav-toggle flex h-10 w-10 flex-col items-center justify-center gap-1.5 border lg:hidden"
+        aria-expanded="false"
+        aria-controls="mobile-drawer"
+        aria-label="Menu"
+      >
+        <span class="block h-px w-5"></span>
+        <span class="block h-px w-5"></span>
+      </button>
+    </div>
+  </div>
+
+  <div id="mobile-drawer" class="mobile-drawer hidden lg:hidden" aria-hidden="true">
+    <nav class="container-site flex flex-col gap-1 py-4" aria-label="Mobile">
+      {
+        links.map(({ key, href, nav }) => (
+          <a
+            href={href}
+            data-scroll={home ? '' : undefined}
+            data-nav={nav}
+            class="nav-link !py-3 !text-xs"
+            data-mobile-nav
+          >
+            {t(locale, `nav.${key}`)}
+          </a>
+        ))
+      }
+      <a href={localePath(locale, 'reserve/')} class="btn-primary mt-3 w-full">
+        {t(locale, 'nav.reserve')}
+      </a>
+    </nav>
+  </div>
+</header>
+
+<script>
+  const toggle = document.getElementById('nav-toggle');
+  const drawer = document.getElementById('mobile-drawer');
+
+  toggle?.addEventListener('click', () => {
+    const open = drawer?.classList.toggle('hidden') === false;
+    toggle.setAttribute('aria-expanded', String(open));
+    drawer?.setAttribute('aria-hidden', String(!open));
+  });
+
+  drawer?.querySelectorAll('[data-mobile-nav]').forEach((link) => {
+    link.addEventListener('click', () => {
+      drawer.classList.add('hidden');
+      toggle?.setAttribute('aria-expanded', 'false');
+    });
+  });
+</script>

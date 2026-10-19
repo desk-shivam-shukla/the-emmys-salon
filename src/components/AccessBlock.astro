@@ -1,0 +1,61 @@
+---
+import type { Locale } from '../lib/i18n';
+import { localized, t } from '../lib/i18n';
+import { salon } from '../lib/loadData';
+import SectionHeading from './SectionHeading.astro';
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+---
+<section id="access" class="section-pad bg-surface-base">
+  <div class="container-site">
+    <SectionHeading title={t(locale, 'access.title')} subtitle={t(locale, 'access.subtitle')} align="left" />
+    <div class="grid gap-12 lg:grid-cols-2 lg:gap-16">
+      <div class="reveal space-y-6">
+        <div>
+          <p class="label-caps">{locale === 'ja' ? 'Salon' : 'Location'}</p>
+          <p class="mt-2 font-serif text-2xl text-wood-deep">{localized(locale, salon.address)}</p>
+          <p class="mt-2 text-sm text-wood-mid">{localized(locale, salon.stations)}</p>
+        </div>
+        <dl class="grid gap-6 sm:grid-cols-2">
+          <div>
+            <dt class="label-caps">{t(locale, 'access.hours')}</dt>
+            <dd class="mt-2 text-sm text-wood-mid">{localized(locale, salon.hours)}</dd>
+            <dd class="mt-1 text-xs text-wood-mid/80">{localized(locale, salon.receptionNotes)}</dd>
+          </div>
+          <div>
+            <dt class="label-caps">{t(locale, 'access.holidays')}</dt>
+            <dd class="mt-2 text-sm text-wood-mid">{localized(locale, salon.holidays)}</dd>
+          </div>
+          <div class="sm:col-span-2">
+            <dt class="label-caps">{t(locale, 'access.phone')}</dt>
+            <dd class="mt-2">
+              <a
+                href={`tel:${salon.phone.replace(/-/g, '')}`}
+                class="font-serif text-3xl text-gold-accent transition-colors hover:text-gold-hover"
+              >
+                {salon.phone}
+              </a>
+            </dd>
+          </div>
+        </dl>
+      </div>
+      {
+        salon.mapsEmbedUrl && (
+          <div class="reveal overflow-hidden border border-gold-soft/60 shadow-[0_24px_48px_-24px_rgba(44,33,24,0.35)]">
+            <iframe
+              title="Map"
+              src={salon.mapsEmbedUrl}
+              class="aspect-[4/3] w-full border-0 grayscale-[30%] sepia-[20%]"
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              allowfullscreen
+            />
+          </div>
+        )
+      }
+    </div>
+  </div>
+</section>

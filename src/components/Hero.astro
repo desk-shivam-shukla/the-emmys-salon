@@ -1,0 +1,63 @@
+---
+import type { Locale } from '../lib/i18n';
+import { localized, localePath, t } from '../lib/i18n';
+import { salon } from '../lib/loadData';
+import { asset } from '../lib/assets';
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+
+const headline =
+  locale === 'ja'
+    ? { line1: 'もっと、', line2: '自分らしい', line3: '美しさを。' }
+    : { line1: 'More than', line2: 'a salon.', line3: 'A reset.' };
+---
+<section class="hero-grain relative flex min-h-[100dvh] items-end overflow-hidden pb-16 pt-28 md:items-center md:pb-0 md:pt-0">
+  <div class="hero-grid pointer-events-none absolute inset-0 opacity-60" aria-hidden="true"></div>
+  <div class="container-site relative z-10 grid items-center gap-12 lg:grid-cols-12 lg:gap-8">
+    <div class="lg:col-span-7">
+      <p class="label-caps !text-gold-soft" data-hero="eyebrow">
+        Denenchofu · {locale === 'ja' ? '完全予約制' : 'By appointment'}
+      </p>
+      <h1 class="display-title mt-6" data-hero="title">
+        <span class="block">{headline.line1}</span>
+        <span class="block text-gold-accent">{headline.line2}</span>
+        <span class="block">{headline.line3}</span>
+      </h1>
+      <p class="mt-8 max-w-md text-sm leading-relaxed text-cream/75 md:text-base" data-hero="tagline">
+        {localized(locale, salon.tagline)}
+      </p>
+      <div class="mt-10 flex flex-wrap gap-4" data-hero="cta">
+        <a href={localePath(locale, 'reserve/')} class="btn-primary">
+          {t(locale, 'hero.ctaReserve')}
+        </a>
+        <a href="#menu" data-scroll class="btn-outline">
+          {t(locale, 'hero.ctaMenu')}
+        </a>
+      </div>
+    </div>
+    <div class="relative lg:col-span-5" data-hero="visual">
+      <div class="absolute -left-4 top-8 hidden h-24 w-24 border border-gold-accent/40 lg:block" aria-hidden="true"></div>
+      <div class="overflow-hidden border border-white/10 shadow-[0_40px_80px_-30px_rgba(0,0,0,0.65)]">
+        <img
+          src={asset('/images/staff/primary.svg')}
+          alt=""
+          class="aspect-[4/5] w-full object-cover opacity-95 [filter:sepia(0.12)_brightness(0.92)]"
+          width="800"
+          height="1000"
+        />
+      </div>
+      <p class="label-caps mt-6 !text-cream/50">{salon.name[locale]}</p>
+    </div>
+  </div>
+  <a
+    href="#concept"
+    data-scroll
+    class="absolute bottom-8 left-1/2 flex -translate-x-1/2 flex-col items-center gap-2 text-[0.6rem] uppercase tracking-[0.35em] text-cream/45 transition-colors hover:text-gold-accent"
+  >
+    <span>{t(locale, 'hero.scroll')}</span>
+    <span class="block h-8 w-px bg-gradient-to-b from-gold-accent/80 to-transparent"></span>
+  </a>
+</section>

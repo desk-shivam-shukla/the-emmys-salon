@@ -1,0 +1,41 @@
+---
+import type { Locale } from '../lib/i18n';
+import { localized } from '../lib/i18n';
+import type { Menu } from '../schemas/salon';
+
+interface Props {
+  locale: Locale;
+  menu: Menu;
+}
+const { locale, menu } = Astro.props;
+
+function formatItem(item: Menu['categories'][0]['items'][0]) {
+  if (item.priceYen) {
+    return `¥${item.priceYen.toLocaleString(locale === 'ja' ? 'ja-JP' : 'en-US')}`;
+  }
+  if (item.priceLabel) return localized(locale, item.priceLabel);
+  return '—';
+}
+---
+<div class="space-y-12">
+  {
+    menu.categories.map((category) => (
+      <section>
+        <h2 class="font-serif text-2xl text-wood-deep">{localized(locale, category.name)}</h2>
+        <ul class="mt-4 divide-y divide-gold-soft/60 border-y border-gold-soft/60">
+          {category.items.map((item) => (
+            <li class="flex flex-col gap-1 py-4 sm:flex-row sm:items-start sm:justify-between">
+              <div>
+                <p class="font-medium text-wood-deep">{localized(locale, item.name)}</p>
+                {item.description && (
+                  <p class="text-sm text-wood-mid">{localized(locale, item.description)}</p>
+                )}
+              </div>
+              <p class="shrink-0 font-medium text-gold-accent">{formatItem(item)}</p>
+            </li>
+          ))}
+        </ul>
+      </section>
+    ))
+  }
+</div>

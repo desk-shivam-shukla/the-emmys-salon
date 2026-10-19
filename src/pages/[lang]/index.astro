@@ -1,0 +1,32 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Hero from '../../components/Hero.astro';
+import Concept from '../../components/Concept.astro';
+import MenuTeaser from '../../components/MenuTeaser.astro';
+import StaffShowcase from '../../components/StaffShowcase.astro';
+import GalleryGrid from '../../components/GalleryGrid.astro';
+import Voices from '../../components/Voices.astro';
+import NewsBand from '../../components/NewsBand.astro';
+import AccessBlock from '../../components/AccessBlock.astro';
+import { isLocale, type Locale } from '../../lib/i18n';
+
+export function getStaticPaths() {
+  return [{ params: { lang: 'ja' } }, { params: { lang: 'en' } }];
+}
+
+const { lang } = Astro.params;
+if (!lang || !isLocale(lang)) {
+  return Astro.redirect(`${import.meta.env.BASE_URL}ja/`);
+}
+const locale = lang as Locale;
+---
+<BaseLayout locale={locale} home={true}>
+  <Hero locale={locale} />
+  <Concept locale={locale} />
+  <MenuTeaser locale={locale} />
+  <StaffShowcase locale={locale} />
+  <GalleryGrid locale={locale} />
+  <Voices locale={locale} />
+  <NewsBand locale={locale} />
+  <AccessBlock locale={locale} />
+</BaseLayout>

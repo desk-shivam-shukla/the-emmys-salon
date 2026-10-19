@@ -1,0 +1,70 @@
+{
+  "nav": {
+    "concept": "サロンについて",
+    "menu": "メニュー",
+    "staff": "スタイリスト",
+    "gallery": "ギャラリー",
+    "access": "アクセス",
+    "reserve": "ご予約"
+  },
+  "hero": {
+    "ctaReserve": "ご予約",
+    "ctaMenu": "メニューを見る",
+    "scroll": "Scroll"
+  },
+  "concept": {
+    "title": "Concept",
+    "subtitle": "サロンの想い"
+  },
+  "menu": {
+    "title": "Menu",
+    "subtitle": "メニュー",
+    "viewAll": "料金表をすべて見る",
+    "from": "より"
+  },
+  "staff": {
+    "title": "Stylist",
+    "subtitle": "スタイリスト"
+  },
+  "gallery": {
+    "title": "Gallery",
+    "subtitle": "スタイル"
+  },
+  "voices": {
+    "title": "Voice",
+    "subtitle": "お客様の声"
+  },
+  "news": {
+    "title": "News",
+    "subtitle": "お知らせ",
+    "readMore": "続きを読む"
+  },
+  "access": {
+    "title": "Access",
+    "subtitle": "アクセス",
+    "hours": "営業時間",
+    "holidays": "定休日",
+    "phone": "お電話"
+  },
+  "footer": {},
+  "reserve": {
+    "title": "Reservation",
+    "subtitle": "ご予約",
+    "call": "お電話でのご予約",
+    "online": "オンライン予約",
+    "formTitle": "ご予約リクエスト",
+    "formNote": "送信はデモです。折り返しご連絡いたします。",
+    "submit": "送信する",
+    "success": "送信を受け付けました（デモ）。",
+    "backHome": "トップへ戻る"
+  },
+  "menuPage": {
+    "title": "Menu & Price",
+    "subtitle": "メニュー・料金",
+    "backHome": "トップへ戻る"
+  },
+  "lang": {
+    "ja": "日本語",
+    "en": "English"
+  }
+}

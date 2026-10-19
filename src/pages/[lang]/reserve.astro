@@ -1,0 +1,57 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ReserveForm from '../../components/ReserveForm.astro';
+import { isLocale, localized, localePath, t, type Locale } from '../../lib/i18n';
+import { salon } from '../../lib/loadData';
+
+export function getStaticPaths() {
+  return [{ params: { lang: 'ja' } }, { params: { lang: 'en' } }];
+}
+
+const { lang } = Astro.params;
+if (!lang || !isLocale(lang)) {
+  return Astro.redirect(`${import.meta.env.BASE_URL}ja/reserve/`);
+}
+const locale = lang as Locale;
+const hotpepper = salon.hotpepperUrl ?? '#';
+---
+<BaseLayout locale={locale} title={t(locale, 'reserve.title')} home={false} pathSuffix="reserve/">
+  <div class="bg-surface-base pb-24 pt-28 md:pt-32">
+    <div class="container-site max-w-2xl">
+      <p class="label-caps">{t(locale, 'reserve.title')}</p>
+      <h1 class="section-title mt-3">{t(locale, 'reserve.subtitle')}</h1>
+
+      <div class="card-elevated mt-12 p-8">
+        <h2 class="font-serif text-xl text-wood-deep">{t(locale, 'reserve.call')}</h2>
+        <a href={`tel:${salon.phone.replace(/-/g, '')}`} class="mt-3 block font-serif text-4xl text-gold-accent">
+          {salon.phone}
+        </a>
+        <p class="mt-3 text-sm text-wood-mid">{localized(locale, salon.receptionNotes)}</p>
+        <p class="text-sm text-wood-mid">{localized(locale, salon.hours)}</p>
+        {
+          salon.hotpepperUrl && (
+            <a href={hotpepper} target="_blank" rel="noopener noreferrer" class="btn-outline-dark mt-8 inline-flex">
+              {t(locale, 'reserve.online')}
+            </a>
+          )
+        }
+      </div>
+
+      <div class="mt-16">
+        <h2 class="font-serif text-2xl text-wood-deep">{t(locale, 'reserve.formTitle')}</h2>
+        <div class="mt-8">
+          <ReserveForm locale={locale} />
+        </div>
+      </div>
+
+      <p class="mt-16">
+        <a
+          href={localePath(locale, '')}
+          class="text-[0.65rem] font-semibold uppercase tracking-[0.2em] text-gold-accent hover:text-gold-hover"
+        >
+          ← {t(locale, 'reserve.backHome')}
+        </a>
+      </p>
+    </div>
+  </div>
+</BaseLayout>

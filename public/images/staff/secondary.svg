@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="500" viewBox="0 0 400 500">
+  <rect width="400" height="500" fill="#ede0cf"/>
+  <rect x="40" y="80" width="320" height="200" rx="8" fill="#e8d5b8" opacity="0.8"/>
+  <text x="200" y="360" text-anchor="middle" font-family="Georgia, serif" font-size="18" fill="#6b5344">At work</text>
+</svg>

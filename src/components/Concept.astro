@@ -1,0 +1,53 @@
+---
+import type { Locale } from '../lib/i18n';
+import { t } from '../lib/i18n';
+import SectionHeading from './SectionHeading.astro';
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+
+const pillars = [
+  {
+    num: '01',
+    title: { ja: '徹底したカウンセリング', en: 'Thoughtful consultation' },
+    body: {
+      ja: '完全予約制の個室で、ライフスタイルとお手入れの時間まで丁寧にお伺いします。',
+      en: 'In a private room, we listen to your lifestyle and daily routine before any scissors move.',
+    },
+  },
+  {
+    num: '02',
+    title: { ja: '髪質を守る施術', en: 'Hair-first techniques' },
+    body: {
+      ja: 'ダメージを抑えたカラーとトリートメントで、艶とまとまりが続く状態へ。',
+      en: 'Gentle color and treatments that protect integrity while improving shine and manageability.',
+    },
+  },
+  {
+    num: '03',
+    title: { ja: '木の温もりの空間', en: 'Warm, wood-toned calm' },
+    body: {
+      ja: 'やわらかな光と自然素材のインテリアで、日常から離れるひとときを。',
+      en: 'Soft light and natural materials — a pause from the city outside.',
+    },
+  },
+];
+---
+<section id="concept" class="section-pad bg-surface-base">
+  <div class="container-site">
+    <SectionHeading title={t(locale, 'concept.title')} subtitle={t(locale, 'concept.subtitle')} align="left" />
+    <div class="grid gap-px overflow-hidden border border-gold-soft/50 bg-gold-soft/30 md:grid-cols-3" data-stagger>
+      {
+        pillars.map((pillar) => (
+          <article class="reveal-child bg-surface-elevated p-8 md:p-10 lg:p-12">
+            <span class="font-serif text-4xl text-gold-accent/80">{pillar.num}</span>
+            <h3 class="mt-6 font-serif text-xl leading-snug text-wood-deep md:text-2xl">{pillar.title[locale]}</h3>
+            <p class="mt-4 text-sm leading-relaxed text-wood-mid">{pillar.body[locale]}</p>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>

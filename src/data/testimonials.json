@@ -1,0 +1,29 @@
+[
+  {
+    "id": "v1",
+    "quote": {
+      "ja": "個室でゆっくり話を聞いてもらえて、仕上がりも想像以上。家でのセットが本当に楽になりました。",
+      "en": "The private room let us talk without rush — the result exceeded what I pictured, and styling at home is finally easy."
+    },
+    "author": "M.K.",
+    "menuHint": { "ja": "カット＋トリートメント", "en": "Cut + treatment" }
+  },
+  {
+    "id": "v2",
+    "quote": {
+      "ja": "初めてのカラーで不安でしたが、ダメージの説明からケアまで丁寧で、艶が続いています。",
+      "en": "First time coloring and I was nervous — Emmy explained everything and the shine has lasted for weeks."
+    },
+    "author": "S.A.",
+    "menuHint": { "ja": "カラー", "en": "Color" }
+  },
+  {
+    "id": "v3",
+    "quote": {
+      "ja": "落ち着いた空間と、木の温もりのある内装が好き。毎回リセットできる時間です。",
+      "en": "I love the calm space and warm wood interior — it feels like a reset every visit."
+    },
+    "author": "R.T.",
+    "menuHint": { "ja": "カット", "en": "Cut" }
+  }
+]

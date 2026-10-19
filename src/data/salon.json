@@ -1,0 +1,30 @@
+{
+  "name": { "ja": "エミーズサロン", "en": "Emmy's Salon" },
+  "tagline": {
+    "ja": "完全予約制の個室で、丁寧なカウンセリングと、続く美しさを。",
+    "en": "Private rooms, unhurried consultation, and hair that stays beautiful after you leave."
+  },
+  "phone": "03-0000-0000",
+  "address": {
+    "ja": "〒145-0071 東京都大田区田園調布 3-1-1 B1",
+    "en": "3-1-1 Denenchofu, Ota-ku, Tokyo 145-0071 B1"
+  },
+  "stations": {
+    "ja": "田園調布駅 徒歩5分",
+    "en": "5 min walk from Denenchofu Station"
+  },
+  "hours": {
+    "ja": "平日・土 9:00–19:00　日祝 9:00–18:00",
+    "en": "Mon–Sat 9:00–19:00 · Sun & holidays 9:00–18:00"
+  },
+  "holidays": {
+    "ja": "毎週火曜日・第3月曜日",
+    "en": "Closed Tuesdays and the 3rd Monday of each month"
+  },
+  "receptionNotes": {
+    "ja": "カット最終受付 18:30／カラー・パーマ最終受付 18:00",
+    "en": "Last cut appointment 18:30 · color/perm last call 18:00"
+  },
+  "hotpepperUrl": "https://beauty.hotpepper.jp/",
+  "mapsEmbedUrl": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3244.0!2d139.667!3d35.596!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2z5p2x5Lqs6YeO6KaL!5e0!3m2!1sja!2sjp!4v1"
+}
