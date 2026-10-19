@@ -35,6 +35,7 @@ jobs:
           PUBLIC_BASE_PATH: ${{ vars.PUBLIC_BASE_PATH }}
           PUBLIC_SALON_PHONE: ${{ vars.PUBLIC_SALON_PHONE }}
           PUBLIC_HOTPEPPER_URL: ${{ vars.PUBLIC_HOTPEPPER_URL }}
+          PUBLIC_GOOGLE_FORM_URL: ${{ vars.PUBLIC_GOOGLE_FORM_URL }}
           PUBLIC_GOOGLE_MAPS_EMBED_URL: ${{ vars.PUBLIC_GOOGLE_MAPS_EMBED_URL }}
         run: npm run build
 
