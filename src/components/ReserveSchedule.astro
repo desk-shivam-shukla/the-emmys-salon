@@ -1,0 +1,171 @@
+---
+import type { Locale } from '../lib/i18n';
+import { t } from '../lib/i18n';
+import type { Availability, SalonSchedule } from '../schemas/salon';
+import {
+  buildWeekSchedule,
+  formatWeekRange,
+  getMondayOfWeek,
+  getTodayInJst,
+  weekdayLabel,
+} from '../lib/schedule';
+import {
+  scheduleCellClass,
+  scheduleDayAriaLabel,
+  scheduleDayHeaderClass,
+  scheduleHolidayDisplayName,
+} from '../lib/schedule-columns';
+
+interface Props {
+  locale: Locale;
+  schedule: SalonSchedule;
+  availability: Availability;
+  googleFormUrl?: string;
+}
+
+const { locale, schedule, availability, googleFormUrl } = Astro.props;
+
+const initialMonday = getMondayOfWeek(getTodayInJst());
+const initialWeek = buildWeekSchedule(initialMonday, schedule, availability.slots);
+
+const payload = JSON.stringify({
+  schedule,
+  slots: availability.slots,
+});
+
+
+---
+<section
+  class="card-elevated mt-12 min-w-0 p-6 md:p-8"
+  id="reserve-schedule"
+  data-schedule-root
+  data-locale={locale}
+  data-initial-monday={initialMonday}
+  data-google-form-url={googleFormUrl ?? ''}
+>
+  <div class="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+    <div>
+      <h2 class="font-serif text-2xl text-wood-deep">{t(locale, 'reserve.scheduleTitle')}</h2>
+      <p class="mt-2 text-sm text-wood-mid">{t(locale, 'reserve.scheduleNote')}</p>
+    </div>
+    <div class="flex w-full gap-2 sm:w-auto">
+      <button
+        type="button"
+        class="btn-outline-dark flex-1 !px-4 !py-2.5 sm:flex-none"
+        data-week-prev
+        aria-label={t(locale, 'reserve.weekPrev')}
+      >
+        ←
+      </button>
+      <p
+        class="flex flex-1 items-center justify-center text-sm font-medium text-wood-deep sm:min-w-[10rem]"
+        data-week-label
+      >
+        {formatWeekRange(initialWeek.weekStart, initialWeek.weekEnd, locale)}
+      </p>
+      <button
+        type="button"
+        class="btn-outline-dark flex-1 !px-4 !py-2.5 sm:flex-none"
+        data-week-next
+        aria-label={t(locale, 'reserve.weekNext')}
+      >
+        →
+      </button>
+    </div>
+  </div>
+
+  <div
+    class="schedule-table-scroll mt-6 rounded-sm border border-gold-soft/40"
+    tabindex="0"
+    role="region"
+    aria-label={t(locale, 'reserve.scheduleTitle')}
+  >
+    <table class="schedule-table border-collapse text-sm" data-schedule-table>
+      <thead class="sticky top-0 z-20 bg-surface-elevated">
+        <tr class="border-b border-gold-soft">
+          <th
+            class="sticky left-0 top-0 z-30 min-w-[3.5rem] bg-surface-elevated px-2 py-3 text-left text-[0.65rem] font-semibold uppercase tracking-[0.15em] text-wood-mid shadow-[4px_0_8px_-4px_rgba(44,33,24,0.12)]"
+          >
+            {locale === 'ja' ? '時間' : 'Time'}
+          </th>
+          {
+            initialWeek.days.map((day) => {
+              const holidayName = scheduleHolidayDisplayName(day, locale);
+              return (
+                <th
+                  class={scheduleDayHeaderClass(day)}
+                  data-day-header={day.date}
+                  aria-label={scheduleDayAriaLabel(day, locale)}
+                >
+                  <span class="block font-serif text-base text-wood-deep">
+                    {weekdayLabel(day.weekdayIndex, locale)}
+                  </span>
+                  <span class="mt-0.5 block text-xs text-wood-mid">
+                    {day.date.slice(5).replace('-', '/')}
+                  </span>
+                  {holidayName && (
+                    <span class="mt-1 block text-[0.6rem] leading-tight text-wood-mid">{holidayName}</span>
+                  )}
+                </th>
+              );
+            })
+          }
+        </tr>
+      </thead>
+      <tbody data-schedule-body>
+        {
+          initialWeek.hours.map((hour, rowIndex) => (
+            <tr class="border-b border-gold-soft/40">
+              <th
+                class="sticky left-0 z-10 min-w-[3.5rem] bg-surface-elevated px-2 py-2 text-left text-xs font-medium text-wood-mid shadow-[4px_0_8px_-4px_rgba(44,33,24,0.12)]"
+                scope="row"
+              >
+                {hour}
+              </th>
+              {initialWeek.cells[rowIndex]?.map((cell, colIndex) => {
+                const day = initialWeek.days[colIndex];
+                return (
+                  <td
+                    class={scheduleCellClass(day, cell.clickable)}
+                    data-slot-date={cell.date}
+                    data-slot-hour={cell.hour}
+                    data-slot-kind={cell.kind}
+                    data-slot-clickable={cell.clickable ? 'true' : 'false'}
+                    aria-label={`${cell.date} ${cell.hour} ${cell.symbol}`}
+                  >
+                    {cell.symbol}
+                  </td>
+                );
+              })}
+            </tr>
+          ))
+        }
+      </tbody>
+    </table>
+  </div>
+
+  <ul class="mt-6 flex flex-wrap gap-x-6 gap-y-2 text-sm text-wood-deep">
+    <li>
+      <span class="font-serif text-lg" aria-hidden="true">○</span>
+      {t(locale, 'reserve.legendOpen')}
+    </li>
+    <li>
+      <span class="font-serif text-lg" aria-hidden="true">△</span>
+      {t(locale, 'reserve.legendBusy')}
+    </li>
+    <li>
+      <span class="font-serif text-lg" aria-hidden="true">×</span>
+      {t(locale, 'reserve.legendFull')}
+    </li>
+    <li class="text-wood-mid">
+      <span class="font-serif text-lg text-wood-mid" aria-hidden="true">—</span>
+      {t(locale, 'reserve.legendClosed')}
+    </li>
+  </ul>
+  <p class="mt-3 text-xs text-wood-mid">{t(locale, 'reserve.holidayShadeNote')}</p>
+
+  <script type="application/json" id="schedule-payload" set:html={payload} />
+  <script>
+    import '../scripts/reserve-schedule.ts';
+  </script>
+</section>

@@ -5,6 +5,25 @@ export const localizedStringSchema = z.object({
   en: z.string(),
 });
 
+const timeRangeSchema = z.object({
+  open: z.string().regex(/^\d{2}:\d{2}$/),
+  close: z.string().regex(/^\d{2}:\d{2}$/),
+});
+
+export const salonScheduleSchema = z.object({
+  slotMinutes: z.number().int().positive().default(60),
+  weekday: timeRangeSchema,
+  sundayAndHoliday: timeRangeSchema,
+  closedWeekdays: z.array(z.number().int().min(0).max(6)),
+  closedMonthly: z.array(z.enum(['thirdMonday'])),
+});
+
+export const slotStatusSchema = z.enum(['open', 'busy', 'full']);
+
+export const availabilitySchema = z.object({
+  slots: z.record(z.string(), slotStatusSchema),
+});
+
 export const salonSchema = z.object({
   name: localizedStringSchema,
   tagline: localizedStringSchema,
@@ -14,7 +33,9 @@ export const salonSchema = z.object({
   hours: localizedStringSchema,
   holidays: localizedStringSchema,
   receptionNotes: localizedStringSchema,
+  schedule: salonScheduleSchema,
   hotpepperUrl: z.string().url().optional(),
+  googleFormUrl: z.string().url().optional(),
   mapsEmbedUrl: z.string().url().optional(),
   social: z
     .object({
@@ -90,6 +111,9 @@ export const bookingRequestSchema = z.object({
 });
 
 export type LocalizedString = z.infer<typeof localizedStringSchema>;
+export type SalonSchedule = z.infer<typeof salonScheduleSchema>;
+export type SlotStatus = z.infer<typeof slotStatusSchema>;
+export type Availability = z.infer<typeof availabilitySchema>;
 export type Salon = z.infer<typeof salonSchema>;
 export type Menu = z.infer<typeof menuSchema>;
 export type Stylist = z.infer<typeof stylistSchema>;

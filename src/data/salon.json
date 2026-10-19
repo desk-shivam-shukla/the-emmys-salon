@@ -25,6 +25,14 @@
     "ja": "カット最終受付 18:30／カラー・パーマ最終受付 18:00",
     "en": "Last cut appointment 18:30 · color/perm last call 18:00"
   },
+  "schedule": {
+    "slotMinutes": 60,
+    "weekday": { "open": "09:00", "close": "19:00" },
+    "sundayAndHoliday": { "open": "09:00", "close": "18:00" },
+    "closedWeekdays": [2],
+    "closedMonthly": ["thirdMonday"]
+  },
   "hotpepperUrl": "https://beauty.hotpepper.jp/",
+  "googleFormUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf-example/viewform",
   "mapsEmbedUrl": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3244.0!2d139.667!3d35.596!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2z5p2x5Lqs6YeO6KaL!5e0!3m2!1sja!2sjp!4v1"
 }

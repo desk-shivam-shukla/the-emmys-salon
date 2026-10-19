@@ -29,10 +29,10 @@ function formatPrice(item: (typeof featured)[0]) {
         featured.map((item) => (
           <div class="price-row">
             <div>
-              <p class="label-caps !text-gold-soft">{localized(locale, item.category)}</p>
+              <p class="label-caps label-caps-on-dark !text-gold-soft">{localized(locale, item.category)}</p>
               <h3 class="mt-1 font-serif text-2xl text-cream">{localized(locale, item.name)}</h3>
               {item.description && (
-                <p class="mt-1 text-sm text-cream/55">{localized(locale, item.description)}</p>
+                <p class="text-muted-on-dark mt-1 text-sm text-cream/55">{localized(locale, item.description)}</p>
               )}
             </div>
             <p class="shrink-0 font-serif text-2xl text-gold-accent">{formatPrice(item)}</p>
